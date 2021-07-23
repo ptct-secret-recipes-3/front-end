@@ -41,6 +41,7 @@ margin-bottom: 1rem;
 const FormStyling = styled.form`
     display: flex;
     flex-direction: column;
+    width: 90%
 `;
 
 export default function Form(props) {
