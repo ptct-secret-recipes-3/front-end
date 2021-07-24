@@ -45,5 +45,21 @@ const FormStyling = styled.form`
 `;
 
 export default function LoginForm (props) {
-  
+
+  let schema = yup.object().shape({
+    username: yup.string()
+    .required("username is required")
+    .min(7,"username must be at least 7 characters"),
+    password: yup.string()
+    .required("password is required")
+    .matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+    "Must contain 8 characters, One Uppercase, One Lowercase, One Number, and One Special Case Character"),
+    confirmPassword: yup.string()
+    .required("Please confirm your password")
+    .when("password", {
+      is: password => (password && password.length > 0 ? true : false),
+      then: yup.string().oneOf([yup.ref("password")], "Password does not match")
+    })
+  })
+
 }
