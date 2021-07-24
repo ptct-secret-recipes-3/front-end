@@ -83,12 +83,7 @@ export default function RegisterForm (props) {
       .catch((err) => setErrors({...errors, [name]: err.errors[0] }))
   }
 
-  const onSubmit = evt => {
-    evt.preventDefault()
-    submit()
-  }
-
-  const onChange = (evt) => {
+  const onSubmit = (evt) => {
     evt.preventDefault()
     const newRegister = {
       username: formData.username.trim(),
@@ -96,6 +91,15 @@ export default function RegisterForm (props) {
       email: formData.email,
     }
     console.log(newRegister)
+  }
+
+  const onChange = (evt) => {
+    const {name, value, type, checked} = evt.target;
+    const trueValue = type === "checkbox" ? checked: value;
+    setValidationErrors(name, trueValue)
+    setFormData({
+      ...formData, [name]: trueValue
+    })  
   }
 
   return (
