@@ -11,3 +11,40 @@ export default function Register (props) {
     email: yup.string().email("Must be a valid email").required("email is required to register").max(255),
   })
 }
+
+  const initialFormData = {
+    username: "",
+    password: "",
+    email: "",
+  }
+
+  const initialFormErrors = {
+    username: "",
+    password: "",
+    email: "",
+  }
+
+  const [formData, setFormData] = useState(initialFormData)
+  const [errors, setErrors] = useState(initialFormErrors)
+  const [buttonDisable, setButtonDisable] = useState(true)
+
+  useEffect(() => {
+    schema.isValid(formData).then(valid => setButtonDisable(!valid))
+  },[formData])
+
+  const setValidationErrors = (name, value) => {
+    yup
+      .reach(schema, name)
+      .validate(value)
+      .then(() => setErrors({...errors, [name]: "" }))
+      .catch((err) => setErrors({...errors, [name]: err.errors[0] }))
+  }
+
+  const handleChange = (e) => {
+    e.preventDefault()
+    const newRegister = {
+      username: formData.username.trim(),
+      password: formData.password,
+      email: formData.email,
+    }
+  }
