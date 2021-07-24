@@ -34,7 +34,7 @@ border-radius: 8px;
 background: black;
 font-size: 0.7rem;
 margin-top: 1rem;
-padding 0.5rem;
+padding: 0.5rem;
 margin-bottom: 1rem;
 `;
 
