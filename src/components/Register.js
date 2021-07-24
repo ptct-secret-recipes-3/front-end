@@ -49,9 +49,16 @@ const FormStyling = styled.form`
 export default function RegisterForm (props) {
 
   let schema = yup.object().shape({
-    username: yup.string().required("username is required").min("username must be at least 7 characters"),
-    password: yup.string().required("password is required").min("password must be at least 7 characters"),
-    email: yup.string().email("Must be a valid email").required("email is required to register").max(255),
+    username: yup.string()
+    .required("username is required")
+    .min(7,"username must be at least 7 characters"),
+    password: yup.string()
+    .required("password is required")
+    .matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+    "Must contain 8 characters, One Uppercase, One Lowercase, One Number, and One Special Case Character"),
+    email: yup.string()
+    .email("Must be a valid email")
+    .required("email is required to register").max(255),
   })
 
 

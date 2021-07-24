@@ -62,4 +62,80 @@ export default function LoginForm (props) {
     })
   })
 
+  const initialFormData = {
+    username: "",
+    password: "",
+    confirmPassword: "",
+  }
+
+  const initialFormErrors = {
+    username: "",
+    password: "",
+    confirmPassword: "",
+  }
+
+  const [formData, setFormData] = useState(initialFormData)
+  const [errors, setErrors] = useState(initialFormErrors)
+  const [buttonDisable, setButtonDisable] = useState(true)
+
+  useEffect(() => {
+    schema.isValid(formData).then(valid => setButtonDisable(!valid))
+  },[formData])
+
+  const setValidationErrors = (name, value) => {
+    yup
+      .reach(schema, name)
+      .validate(value)
+      .then(() => setErrors({...errors, [name]: "" }))
+      .catch((err) => setErrors({...errors, [name]: err.errors[0] }))
+  }
+
+  const onSubmit = (evt) => {
+    evt.preventDefault()
+    const newLogin = {
+      username: formData.username.trim(),
+      password: formData.password,
+      confirmPassword: formData.confirmPassword,
+    }
+    console.log(newLogin)
+  }
+
+  const onChange = (evt) => {
+    const {name, value, type, checked} = evt.target;
+    const trueValue = type === "checkbox" ? checked: value;
+    setValidationErrors(name, trueValue)
+    setFormData({
+      ...formData, [name]: trueValue
+    })  
+  }
+
+  return(
+    <form className = "login-form" onSubmit={onSubmit}>
+      <div>
+        <BigContainer>
+          <div className = "errors" style={{color: "red"}}>
+            <div>{errors.username}</div>
+            <div>{errors.password}</div>
+            <div>{errors.confirmPassword}</div>
+          </div>
+
+          <CreateLogin>Create a login for Secret Recipes!</CreateLogin>
+
+          <FormStyling>
+          <label /> Username:
+              <input type="text" name="username" id="username-input" onChange={onChange} value={formData.username} />
+            <br />
+            <label /> Password:
+              <input type="text" name="password" id="password-input" onChange={onChange} value={formData.password} />
+            <br />
+            <label /> Confirm Password:
+              <input type="text" name="confirmPassword" id="confirmPassword-input" onChange={onChange} value={formData.confirmPassword} />
+            <br />
+            <BlackButton name="submit" disabled={buttonDisable} id="register-button"> Register </BlackButton>
+          </FormStyling>
+
+        </BigContainer>
+      </div>
+    </form>
+  )
 }
