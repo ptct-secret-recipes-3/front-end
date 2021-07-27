@@ -1,4 +1,3 @@
-
 import './App.css';
 import Form from './components/RecipeForm.js';
 
@@ -10,4 +9,4 @@ function App() {
   );
 }
 
-export default App;
+export default App
