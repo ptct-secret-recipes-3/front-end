@@ -34,14 +34,14 @@ border-radius: 8px;
 background: black;
 font-size: 0.7rem;
 margin-top: 1rem;
-padding 0.5rem;
+padding: 0.5rem;
 margin-bottom: 1rem;
 `;
 
 const FormStyling = styled.form`
     display: flex;
     flex-direction: column;
-    width: 90%
+    width: 90%;
 `;
 
 export default function Form(props) {
@@ -51,7 +51,8 @@ export default function Form(props) {
         title: yup.string().required('title must be at least 2 characters').min(2, 'title must be at least 2 characters'),
         source: yup.string().required('source must be at least 2 characters').min(2, 'source must be at least 2 characters'),
         ingredients: yup.string().required('ingredients must be at least 2 characters').min(2, 'ingredients must be at least 2 characters'),
-        instructions: yup.string().required('instructions must be at least 2 characters').min(2, 'instructions must be at least 2 characters')
+        instructions: yup.string().required('instructions must be at least 2 characters').min(2, 'instructions must be at least 2 characters'),
+        category: yup.string().required('category must be at least 2 characters').min(2, 'category must be at least 2 characters')
     })
 
     const initialFormData = {
