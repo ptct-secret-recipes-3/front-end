@@ -74,6 +74,7 @@ export default function Form(props) {
     const [formData, setFormData] = useState(initialFormData)
     const [errors, setErrors] = useState(defaultErrors)
     const [buttonDisable, setButtonDisable] = useState(true)
+    const [recipes, setRecipes] = useState([])
 
     useEffect(() => {
         schema.isValid(formData).then(valid => setButtonDisable(!valid))
@@ -105,7 +106,10 @@ export default function Form(props) {
             instructions: formData.instructions,
             category: formData.category
         }
-        console.log(newRecipe)
+        axios.post(`http://locahost:5000/api/recipes`, newRecipe)
+            .then(res => setRecipes([...recipes, res.data]))
+        setFormData(initialFormData)
+        
     }
 
 
@@ -143,7 +147,7 @@ export default function Form(props) {
 
                     </div>
                 </div>
-                <BlackButton name='submit' disabled={buttonDisable} id='order-button'> Complete Order</BlackButton>
+                <BlackButton name='submit' disabled={buttonDisable} id='order-button'> Complete Recipe</BlackButton>
             </FormStyling>
             </BigContainer>
         </div>
