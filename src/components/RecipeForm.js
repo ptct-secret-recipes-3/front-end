@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
+// import { useHistory } from 'react-router-dom'
 //import axios from 'axios'
 import * as yup from 'yup';
 import styled from 'styled-components'
@@ -77,7 +77,7 @@ export default function Form(props) {
 
     useEffect(() => {
         schema.isValid(formData).then(valid => setButtonDisable(!valid))
-    }, [formData])
+    }, [schema, formData])
 
     const setValidationErrors = (name, value) => {
         yup
